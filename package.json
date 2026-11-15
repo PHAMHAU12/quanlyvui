@@ -1,0 +1,18 @@
+{
+  "name": "quan-ly-lop-bang-ma-qr-pp-hau",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cổng thông tin & Ứng dụng QUẢN LÝ LỚP BẰNG MÃ QR - PP HẬU",
+  "scripts": {
+    "build": "echo Build completed"
+  },
+  "keywords": [
+    "qr-code",
+    "attendance",
+    "pp-hau",
+    "android",
+    "education"
+  ],
+  "author": "PP HẬU",
+  "license": "MIT"
+}

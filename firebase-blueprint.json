@@ -1,0 +1,319 @@
+{
+  "entities": {
+    "AdminEntry": {
+      "title": "AdminEntry",
+      "description": "Registry of system administrators authorized for school-wide management.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "grantedByUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["uid", "email", "displayName", "grantedByUid", "createdAt"]
+    },
+    "TeacherProfile": {
+      "title": "TeacherProfile",
+      "description": "Profile and role assignment for teachers and administrators.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "subject": { "type": "string" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "teacher"] },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["uid", "displayName", "email", "subject", "phone", "role", "active", "createdAt", "updatedAt"]
+    },
+    "TeacherInvite": {
+      "title": "TeacherInvite",
+      "description": "Pre-registered teacher invitation managed by administrators.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "fullName": { "type": "string" },
+        "subject": { "type": "string" },
+        "phone": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "teacher"] },
+        "active": { "type": "boolean" },
+        "invitedByUid": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["email", "fullName", "subject", "phone", "role", "active", "invitedByUid", "createdAt", "updatedAt"]
+    },
+    "SchoolYear": {
+      "title": "SchoolYear",
+      "description": "Academic school year with Semester 1 and Semester 2 date boundaries.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "isCurrent": { "type": "boolean" },
+        "isSchoolWide": { "type": "boolean" },
+        "ownerUid": { "type": "string" },
+        "semester1StartMillis": { "type": "integer" },
+        "semester1EndMillis": { "type": "integer" },
+        "semester2StartMillis": { "type": "integer" },
+        "semester2EndMillis": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": [
+        "name",
+        "isCurrent",
+        "isSchoolWide",
+        "ownerUid",
+        "semester1StartMillis",
+        "semester1EndMillis",
+        "semester2StartMillis",
+        "semester2EndMillis",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Classroom": {
+      "title": "Classroom",
+      "description": "High school classroom with assigned teacher ACLs and per-class cryptographic QR secret.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "grade": { "type": "integer" },
+        "schoolYearId": { "type": "string" },
+        "schoolYearName": { "type": "string" },
+        "homeroomTeacherUid": { "type": "string" },
+        "homeroomTeacherName": { "type": "string" },
+        "ownerUid": { "type": "string" },
+        "teacherUids": { "type": "array" },
+        "qrSecret": { "type": "string" },
+        "studentCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": [
+        "name",
+        "grade",
+        "schoolYearId",
+        "schoolYearName",
+        "homeroomTeacherUid",
+        "homeroomTeacherName",
+        "ownerUid",
+        "teacherUids",
+        "qrSecret",
+        "studentCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "High school student record with non-PII random QR token and version.",
+      "type": "object",
+      "properties": {
+        "studentCode": { "type": "string" },
+        "fullName": { "type": "string" },
+        "gender": { "type": "string", "enum": ["Nam", "Nữ", "Khác"] },
+        "dateOfBirth": { "type": "string" },
+        "parentPhone": { "type": "string" },
+        "classId": { "type": "string" },
+        "className": { "type": "string" },
+        "schoolYearId": { "type": "string" },
+        "qrToken": { "type": "string" },
+        "qrVersion": { "type": "integer" },
+        "active": { "type": "boolean" },
+        "ownerUid": { "type": "string" },
+        "teacherUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": [
+        "studentCode",
+        "fullName",
+        "gender",
+        "dateOfBirth",
+        "parentPhone",
+        "classId",
+        "className",
+        "schoolYearId",
+        "qrToken",
+        "qrVersion",
+        "active",
+        "ownerUid",
+        "teacherUids",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AttendanceSession": {
+      "title": "AttendanceSession",
+      "description": "Class session for QR attendance scanning with late threshold and status.",
+      "type": "object",
+      "properties": {
+        "classId": { "type": "string" },
+        "className": { "type": "string" },
+        "schoolYearId": { "type": "string" },
+        "subject": { "type": "string" },
+        "periodLabel": { "type": "string" },
+        "sessionDate": { "type": "string" },
+        "scheduledStartMillis": { "type": "integer" },
+        "lateAfterMinutes": { "type": "integer" },
+        "status": { "type": "string", "enum": ["OPEN", "CLOSED"] },
+        "createdByUid": { "type": "string" },
+        "createdByName": { "type": "string" },
+        "teacherUids": { "type": "array" },
+        "presentCount": { "type": "integer" },
+        "lateCount": { "type": "integer" },
+        "excusedCount": { "type": "integer" },
+        "unexcusedCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": [
+        "classId",
+        "className",
+        "schoolYearId",
+        "subject",
+        "periodLabel",
+        "sessionDate",
+        "scheduledStartMillis",
+        "lateAfterMinutes",
+        "status",
+        "createdByUid",
+        "createdByName",
+        "teacherUids",
+        "presentCount",
+        "lateCount",
+        "excusedCount",
+        "unexcusedCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AttendanceRecord": {
+      "title": "AttendanceRecord",
+      "description": "Individual student attendance record keyed deterministically by sessionId_studentId.",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string" },
+        "classId": { "type": "string" },
+        "className": { "type": "string" },
+        "schoolYearId": { "type": "string" },
+        "sessionDate": { "type": "string" },
+        "subject": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentCode": { "type": "string" },
+        "studentName": { "type": "string" },
+        "status": { "type": "string", "enum": ["PRESENT", "LATE", "ABSENT_EXCUSED", "ABSENT_UNEXCUSED"] },
+        "scanMethod": { "type": "string", "enum": ["QR_SCAN", "MANUAL"] },
+        "checkedInAtMillis": { "type": "integer" },
+        "note": { "type": "string" },
+        "recordedByUid": { "type": "string" },
+        "recordedByName": { "type": "string" },
+        "updatedByUid": { "type": "string" },
+        "updatedByName": { "type": "string" },
+        "teacherUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": [
+        "sessionId",
+        "classId",
+        "className",
+        "schoolYearId",
+        "sessionDate",
+        "subject",
+        "studentId",
+        "studentCode",
+        "studentName",
+        "status",
+        "scanMethod",
+        "checkedInAtMillis",
+        "note",
+        "recordedByUid",
+        "recordedByName",
+        "updatedByUid",
+        "updatedByName",
+        "teacherUids",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AttendanceAuditLog": {
+      "title": "AttendanceAuditLog",
+      "description": "Immutable audit trail for manual edits to student attendance records.",
+      "type": "object",
+      "properties": {
+        "recordId": { "type": "string" },
+        "sessionId": { "type": "string" },
+        "classId": { "type": "string" },
+        "className": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "previousStatus": { "type": "string", "enum": ["PRESENT", "LATE", "ABSENT_EXCUSED", "ABSENT_UNEXCUSED"] },
+        "newStatus": { "type": "string", "enum": ["PRESENT", "LATE", "ABSENT_EXCUSED", "ABSENT_UNEXCUSED"] },
+        "reason": { "type": "string" },
+        "editorUid": { "type": "string" },
+        "editorName": { "type": "string" },
+        "teacherUids": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": [
+        "recordId",
+        "sessionId",
+        "classId",
+        "className",
+        "studentId",
+        "studentName",
+        "previousStatus",
+        "newStatus",
+        "reason",
+        "editorUid",
+        "editorName",
+        "teacherUids",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/admins/{adminUid}": {
+      "schema": { "$ref": "#/entities/AdminEntry" },
+      "description": "System administrator allowlist."
+    },
+    "/teachers/{teacherUid}": {
+      "schema": { "$ref": "#/entities/TeacherProfile" },
+      "description": "Teacher and administrator profile documents."
+    },
+    "/teacher_invites/{inviteId}": {
+      "schema": { "$ref": "#/entities/TeacherInvite" },
+      "description": "Admin-managed teacher invitations."
+    },
+    "/school_years/{yearId}": {
+      "schema": { "$ref": "#/entities/SchoolYear" },
+      "description": "Academic school years and semester dates."
+    },
+    "/classes/{classId}": {
+      "schema": { "$ref": "#/entities/Classroom" },
+      "description": "High school classes with teacher access control lists."
+    },
+    "/students/{studentId}": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Student roster records with random QR tokens."
+    },
+    "/sessions/{sessionId}": {
+      "schema": { "$ref": "#/entities/AttendanceSession" },
+      "description": "Class attendance sessions."
+    },
+    "/attendance_records/{recordId}": {
+      "schema": { "$ref": "#/entities/AttendanceRecord" },
+      "description": "Attendance check-in records keyed by sessionId_studentId."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AttendanceAuditLog" },
+      "description": "Immutable audit logs for attendance edits."
+    }
+  }
+}

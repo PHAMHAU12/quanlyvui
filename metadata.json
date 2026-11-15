@@ -1,0 +1,6 @@
+{
+  "name": "QUẢN LÝ LỚP BẰNG MÃ QR - PP HẬU",
+  "description": "Ứng dụng Quản lý lớp học và điểm danh bằng mã QR - PP HẬU dành cho giáo viên và nhà trường THPT với Firebase Authentication, Cloud Firestore, đồng bộ ngoại tuyến, thống kê chuyên cần và xuất Excel/PDF.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUẢN LÝ LỚP BẰNG MÃ QR - PP HẬU</title>
+  <meta name="description" content="Hệ thống quản lý lớp học và điểm danh học sinh THPT thông minh bằng mã QR - PP HẬU">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Be Vietnam Pro -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <!-- QRCode.js CDN for live preview demo -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#f0f9fa',
+              100: '#d7eff4',
+              200: '#b2dfeb',
+              500: '#0d4c5e',
+              600: '#093a48',
+              700: '#062934',
+              mint: '#0e8f6b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Be Vietnam Pro', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center font-bold shadow-md shadow-brand-500/20">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-extrabold text-slate-900 text-base sm:text-lg tracking-tight block leading-tight">QUẢN LÝ LỚP BẰNG MÃ QR</span>
+          <span class="text-xs font-semibold text-brand-mint uppercase tracking-wider block">PP HẬU • BẢN CHUẨN HÓA 1.0</span>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+          <span class="w-2 h-2 mr-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+          Đồng bộ Cloud Firestore
+        </span>
+        <a href="#features" class="text-sm font-semibold text-slate-600 hover:text-brand-500 px-3 py-2 rounded-lg transition">Tính năng</a>
+        <a href="#download" class="text-sm font-semibold bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-lg shadow-sm transition">Cài đặt APK</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-grow">
+    <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-slate-50 py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-100/70 border border-brand-200 text-brand-700 text-xs font-semibold">
+              <svg class="w-4 h-4 text-brand-mint" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+              </svg>
+              Giải pháp số hóa chuyên cần THPT Việt Nam
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+              Quản lý lớp học & Điểm danh <span class="text-brand-500">Mã QR</span> thông minh
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              Hệ thống của <strong>PP HẬU</strong> giúp giáo viên điểm danh nhanh từng học sinh trong tích tắc bằng camera điện thoại, bảo mật mã hóa HMAC-SHA256, chạy ngoại tuyến 100% khi mất mạng, phân tích AI và xuất báo cáo Excel/PDF chuyên nghiệp.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#download" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-white bg-brand-500 hover:bg-brand-600 shadow-lg shadow-brand-500/25 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                Tải file cài đặt APK
+              </a>
+              <a href="#demo" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 transition">
+                <svg class="w-5 h-5 text-brand-mint" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Trải nghiệm thử mã QR
+              </a>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200/80">
+              <div class="text-left">
+                <span class="block text-2xl font-black text-brand-500">100%</span>
+                <span class="text-xs text-slate-500 font-medium">Bảo mật HMAC</span>
+              </div>
+              <div class="text-left">
+                <span class="block text-2xl font-black text-brand-mint">Offline</span>
+                <span class="text-xs text-slate-500 font-medium">Lưu đệm 100 MB</span>
+              </div>
+              <div class="text-left">
+                <span class="block text-2xl font-black text-amber-600">AI</span>
+                <span class="text-xs text-slate-500 font-medium">Phân tích tự động</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Card -->
+          <div class="lg:col-span-5" id="demo">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-8 space-y-6">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div>
+                  <h3 class="font-bold text-slate-900 text-base">Thẻ thử nghiệm mã QR</h3>
+                  <p class="text-xs text-slate-500">Sinh mã bảo mật theo chuẩn PP HẬU</p>
+                </div>
+                <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200">
+                  QRA1 Protocol
+                </span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-600 mb-1">Tên học sinh</label>
+                  <input id="demoName" type="text" value="Nguyễn Văn An" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Mã HS</label>
+                    <input id="demoCode" type="text" value="HS1001" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 mono">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Lớp</label>
+                    <input id="demoClass" type="text" value="10A1" class="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col items-center justify-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                <div id="qrcode" class="p-2 bg-white rounded-lg shadow-sm border border-slate-200"></div>
+                <p id="qrPayloadPreview" class="mt-3 text-[11px] mono text-slate-500 text-center break-all max-w-xs"></p>
+              </div>
+
+              <button onclick="regenerateDemoQR()" class="w-full py-2.5 px-4 rounded-xl text-sm font-bold text-white bg-slate-800 hover:bg-slate-900 transition flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Tạo mã QR ngẫu nhiên mới
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features" class="py-16 sm:py-24 bg-white border-t border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-brand-mint mb-2">Đặc điểm nổi bật</h2>
+          <p class="text-3xl font-black text-slate-900 tracking-tight">Hệ thống chuẩn mực dành cho nhà trường THPT</p>
+          <p class="text-slate-600 mt-3 text-base">Tối ưu cho cả giảng dạy trên lớp lẫn quản lý thống kê dữ liệu chuyên cần lâu dài.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Mã QR HMAC Chống Giả & Không PII</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Mã QR học sinh chỉ chứa mã định danh ngẫu nhiên kèm khóa bí mật theo lớp. Không in thông tin nhạy cảm lên mã, chặn hoàn toàn quét trùng hay gian lận điểm danh.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Ngoại Tuyến 100% & Tự Đồng Bộ</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Dù phòng học mất wifi hay mạng di động yếu, giáo viên vẫn điểm danh mượt mà nhờ bộ đệm 100MB của Firestore. Hệ thống tự đồng bộ lên mây ngay khi có kết nối trở lại.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Trợ Lý AI Phân Tích Chuyên Cần</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Tích hợp mô hình AI thông minh tự động đọc tổng hợp số liệu, phát hiện học sinh vắng trễ bất thường, cảnh báo sớm nguy cơ ảnh hưởng hạnh kiểm và gợi ý tin nhắn gửi phụ huynh.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Xuất Báo Cáo Excel Nhiều Sheet</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Xuất tệp Excel .xlsx chuẩn với trang Tổng quan tỉ lệ chuyên cần, trang Chi tiết từng buổi học và trang Nhật ký chỉnh sửa có lý do giải trình đầy đủ.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">In Thẻ QR Học Sinh Hàng Loạt (PDF)</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Tạo tệp PDF in thẻ điểm danh QR chia sẵn 9 thẻ/trang A4 cho toàn bộ lớp chỉ với 1 click. Giáo viên có thể in ra giấy và ép plastic phát cho học sinh dùng suốt cả năm.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Phân Quyền Giáo Viên & Chủ Nhiệm</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Quản trị viên nhà trường dễ dàng phân công giáo viên bộ môn và chủ nhiệm theo từng lớp. Giáo viên chỉ nhìn thấy và điểm danh lớp mình được phân công.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Download & How to Build Section -->
+    <section id="download" class="py-16 sm:py-24 bg-slate-100 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-8 sm:p-12 space-y-8">
+          <div class="text-center space-y-3">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-700">
+              Cài đặt & Vận hành ứng dụng Android
+            </span>
+            <h2 class="text-3xl font-black text-slate-900">Cách cài đặt QUẢN LÝ LỚP BẰNG MÃ QR - PP HẬU</h2>
+            <p class="text-slate-600 text-sm max-w-xl mx-auto">
+              Ứng dụng được viết bằng Kotlin / Jetpack Compose hiện đại cho hệ điều hành Android (từ Android 7.0 đến Android 15/16).
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+            
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-500 text-white flex items-center justify-center font-bold text-sm">1</div>
+                <h4 class="font-bold text-slate-900 text-base">Build trực tiếp trên Android Studio</h4>
+              </div>
+              <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                <li>Tải mã nguồn từ GitHub về máy tính.</li>
+                <li>Mở thư mục dự án bằng <strong>Android Studio</strong>.</li>
+                <li>Chọn <strong>Build &gt; Build Bundle(s) / APK(s) &gt; Build APK(s)</strong>.</li>
+                <li>Chuyển tệp <code class="mono bg-slate-200 px-1 py-0.5 rounded text-xs">app-debug.apk</code> vào điện thoại để cài đặt.</li>
+              </ul>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-mint text-white flex items-center justify-center font-bold text-sm">2</div>
+                <h4 class="font-bold text-slate-900 text-base">Tự động build bằng GitHub Actions</h4>
+              </div>
+              <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                <li>Dự án đã tích hợp sẵn GitHub Actions CI/CD.</li>
+                <li>Mỗi lần bạn push mã nguồn lên GitHub, GitHub sẽ tự động biên dịch file APK hoàn chỉnh.</li>
+                <li>Vào tab <strong>Actions &gt; Artifacts</strong> trên repo GitHub để tải file APK về cài đặt ngay không cần cài Android Studio!</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-start gap-3">
+            <svg class="w-5 h-5 flex-shrink-0 text-amber-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+              <strong>Lưu ý về Vercel:</strong> Vercel là nền tảng máy chủ Web (Next.js/React/HTML). Trang web bạn đang xem này được Vercel build và phục vụ trực tuyến. Còn ứng dụng Android trên điện thoại được cài qua file APK như hướng dẫn ở trên.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <div>
+        <span class="text-white font-bold block text-base">QUẢN LÝ LỚP BẰNG MÃ QR - PP HẬU</span>
+        <span class="text-xs text-slate-500">Phát triển và chuẩn hóa bởi <strong>PP HẬU</strong> • Bản quyền 2026</span>
+      </div>
+      <div class="text-xs text-slate-500">
+        Ứng dụng Quản lý điểm danh chuyên cần THPT Việt Nam
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let qrcodeObj = null;
+
+    function generateHMACMock(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash).toString(16).padStart(8, '0');
+    }
+
+    function regenerateDemoQR() {
+      const name = document.getElementById('demoName').value.trim() || 'Học sinh';
+      const code = document.getElementById('demoCode').value.trim() || 'HS1001';
+      const cls = document.getElementById('demoClass').value.trim() || '10A1';
+      
+      const token = 'tok_' + Math.random().toString(36).substring(2, 10);
+      const version = 1;
+      const signature = generateHMACMock(cls + code + token);
+      
+      // Format payload standard QRA1:cls:studentToken:version:sig
+      const payload = `QRA1:${cls}:${token}:${version}:${signature}`;
+      
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+      
+      qrcodeObj = new QRCode(qrContainer, {
+        text: payload,
+        width: 160,
+        height: 160,
+        colorDark: "#0d4c5e",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+      
+      document.getElementById('qrPayloadPreview').textContent = `Mã hóa: ${payload}`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      regenerateDemoQR();
+      
+      ['demoName', 'demoCode', 'demoClass'].forEach(id => {
+        document.getElementById(id).addEventListener('input', regenerateDemoQR);
+      });
+    });
+  </script>
+</body>
+</html>
